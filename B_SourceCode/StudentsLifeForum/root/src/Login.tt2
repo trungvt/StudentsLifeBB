@@ -1,0 +1,13 @@
+[% IF ! c.user_exists %]
+<h3>ログイン [Log in]</h3>
+<form action="[% c.uri_for('login') %]" method="post" accept-charset="utf-8">
+    <label for="username">Username</label>
+    <input type="text" name="username" value="" />
+    <br/><br/>
+    <label for="password">Password</label>
+    <input type="password" name="password" value="" />
+    <p><input type="submit" value="ログイン &rarr;"></p>
+</form>
+[% ELSE %]
+    <p>You are already logged in.</p>
+[% END %]

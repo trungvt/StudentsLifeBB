@@ -1,0 +1,102 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+    <title>学生の生活</title>
+    <link rel="stylesheet" href="[% c.uri_for('../static/css/main.css') %]" />
+    <script src="../static/js/form_validation.js"></script>
+    <script src="../static/js/effect_ui.js"></script>
+</head>
+
+<body onload="setupPicChange();">
+	<table align="center" width="910" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+		<tr>
+			<td bgcolor="#E3E4FA">
+		        <img src="../static/images/goctrai.gif" />
+			</td>
+			<td height="20" colspan="3" valign="top" bgcolor="#53E1FF">
+			</td>
+			<td bgcolor="#E3E4FA">
+				<img src="../static/images/gocphai.gif" />
+			</td>
+		</tr>
+		<tr>
+			<td width="20" rowspan="5" valign="top" bgcolor="#53E1FF">
+			</td>
+			<td colspan="3" valign="top">
+				<img id="banner_img" src="../static/images/banner1.jpg" alt="banner" onmouseover="stopTimer();" onmouseout="startTimer();" />
+			</td>
+			<td width="20" rowspan="5" valign="top" bgcolor="#53E1FF">
+			</td>
+		</tr>
+		<tr valign="left">
+			<td height="30" colspan="3" background="images/duoibanner.gif">
+				<table align="left" width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+					<tr valign="left" bgcolor="#53E1FF">
+						<td width="60%" align="left" valign="left">
+							<a href="/index">
+							<img src="../static/images/homepage.png" alt="Login" width="16" height="16" border="0" align="absmiddle">
+							<strong>ホームページ</strong></a> &nbsp; &nbsp;
+						[% IF ! c.user_exists %]
+							<a href="/login">
+							<img src="../static/images/login.png" alt="Login" width="16" height="16" border="0" align="absmiddle">
+							<strong>ログイン</strong></a> &nbsp; &nbsp;
+							<a href="/register">
+							<img src="../static/images/register.png" alt="Register" width="16" height="16" border="0" align="absmiddle" />
+							<strong>登録</strong></a>
+						[% ELSE %]
+							<font size="2">Hello! You logged in as <a href="/profile/[% c.user.id %]"><strong>[% c.user.username %]</strong></a><font> &nbsp; &nbsp;
+							[% IF c.user_exists() %]
+								[% IF c.check_user_roles(admin) %]
+								<font size="2" color="#FF0000"><a href="/administrator"><strong>[運営者]</strong></a><font> &nbsp; &nbsp;
+								[% END %]
+							[% END %]
+							<a href="/logout">
+								<img src="../static/images/logout.png" alt="Login" width="16" height="16" border="0" align="absmiddle">
+								<strong>ログアウト</strong>
+							</a> &nbsp; &nbsp;
+						[% END %]
+						</td>
+						<td width="40%" align="right">
+							<input name="search" value="" id="search_txt" />
+							<input type="submit" name="search_btn" value="探索" id="search_btn" />    
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td class="spaceAfterBanner" colspan="3">
+			</td>
+		</tr>
+		<tr width="530" align="center" valign="top" style="padding-left: 10px; padding-right: 10px">
+		<!-- Main Content -->
+			<td class="spaceAfterBanner" colspan="3">
+				<span class="message">[% status_msg %]</span>
+			   	<span class="error">[% error_msg %]</span>
+				<div>[% loginresult %]</div>
+				    [% content %]
+			</td>
+		</tr>
+		<tr>
+			<td height="63" valign="top">
+			</td>
+			<td valign="top" align="center">
+			<hr width="100%" size="1" />
+				<font color="#000000">Copyright (C) タイン・チュン - 2012</font>
+			</td>
+			<td valign="top">
+			</td>
+		</tr>
+		<tr>
+			<td bgcolor="#E3E4FA">
+				    <img src="../static/images/goctraid.gif">
+			</td>
+			<td height="20" colspan="3" valign="top" bgcolor="#53E1FF">
+			</td>
+			<td bgcolor="#E3E4FA">
+				<img src="../static/images/gocphaid.gif">
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

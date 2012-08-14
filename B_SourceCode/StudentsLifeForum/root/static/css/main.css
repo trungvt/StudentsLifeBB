@@ -1,0 +1,246 @@
+.message {
+    color: #390;
+}
+.error {
+    color: #f00;
+}
+body,td,th {
+	font-family: Tahoma;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #E3E4FA;
+}
+
+a:link {
+	color: #0000FF;
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+	color: #0000FF;
+}
+a:hover {
+	text-decoration: underline;
+	color: #660000;
+}
+a:active {
+	text-decoration: none;
+	color: #00FF00;
+}
+
+.menuText {
+	font-family: Tahoma;
+	font-size: 12px;
+	background-color: #0099FF;
+	text-indent: 15px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: solid;
+	border-left-style: none;
+	color: #FFFFFF;
+	border-bottom-width: 1px;
+	border-bottom-color: #FFFF00;
+	vertical-align: middle;
+	height: 22px;
+}
+
+.DeMuc {
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #FFFF00;
+	background-image: url(../images/DeMuc.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-indent: 20px;
+	height: 25px;
+}
+.BoxContent {
+	padding: 5px;
+	border: 1px solid #0066CB;
+}
+.nduTopic {
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #0000FF;
+	background-image: url(../images/nduTopic.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-indent: 20px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #FF9102;
+	height: 22px;
+}
+.fontLogin {
+	font-family: Tahoma;
+	font-size: 10px;
+}
+.spaceAfterBanner {
+	height: 5px;
+}
+.fontNgayThang {
+	font-family: Tahoma;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;
+}
+.txtTitle {
+	font-family: Tahoma;
+	color: #0000FF;
+}
+.txtNoiDung {
+	text-indent: 30px;
+	text-align: justify;
+}
+
+
+#menu9 {
+        width: 170px;
+        margin: 0px;
+        }
+#menu9 li a {
+        height: 32px;
+          voice-family: "\"}\"";
+          voice-family: inherit;
+          height: 21px;
+        text-decoration: none;
+        }
+#menu9 li a:link, #menu9 li a:visited {
+        color: #FFF;
+        display: block;
+        background:  url(../images/menu9.gif);
+        padding: 5px 0 0 35px;
+        }
+#menu9 li a:hover, #menu9 li #current {
+        color: #FFF;
+        background:  url(../images/menu9.gif) 0 -32px;
+        padding: 5px 0 0 35px;
+        }
+ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        }
+
+
+.tr_list {
+	background: #FFFFFF;
+}
+.tr_list_over {
+	background:#9DFFFF;
+}
+
+
+.pageSpace {
+	WIDTH: 4px
+}
+.pageFarSide {
+	WIDTH: 25px
+}
+	table.tbstyle {
+            width: 100%;    
+        }
+        table.tbstyle thead tr td  {
+            background-color: White;
+            vertical-align:middle;
+            padding: 0.6em;
+            font-size:0.8em;
+        }
+ 
+        /*** table's thead section, coulmns header style ***/
+        table.tbstyle thead tr th
+        {
+            padding: 0.5em;
+            /* add gradient */
+            background-color: #2B65EC;
+            background: -webkit-gradient(linear, left top, left bottom, from(#2B65EC), to(#306EFF));
+            background: -moz-linear-gradient(top, #2B65EC, #306EFF);
+            color: #FFFFFF;
+        }
+ 
+        /*** table's tbody section, odd rows style ***/
+        table.tbstyle tbody tr:nth-child(odd) {
+           background-color: #fafafa;
+        }
+ 
+        /*** hover effect to table's tbody odd rows ***/
+        /*table.tbstyle tbody tr:nth-child(odd):hover
+        {
+            cursor:pointer;
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }*/
+ 
+        /*** table's tbody section, even rows style ***/
+        table.tbstyle tbody tr:nth-child(even) {
+            background-color: #efefef;
+        }
+ 
+        /*** hover effect to apply to table's tbody section, even rows 
+        table.tbstyle tbody tr:nth-child(even):hover
+        {
+            cursor:pointer;
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }*/
+ 
+       /*** table's tbody section, last row style ***/
+        table.tbstyle tbody tr:last-child {
+             border-bottom: solid 1px #404040;
+        }
+ 
+        /*** table's tbody section, separator row pseudo-class ***/
+        table.tbstyle tbody tr.separator {
+            /* add gradient */
+            background-color: #808080;
+            background: -webkit-gradient(linear, left top, left bottom, from(#606060), to(#909090));
+            background: -moz-linear-gradient(top, #606060, #909090);
+            color: #dadada;
+        }
+ 
+        /*** table's td element, all section ***/
+        table.tbstyle td {
+           vertical-align:middle;
+           padding: 0.5em;
+        }
+ 
+        /*** table's tfoot section ***/
+        table.tbstyle tfoot{
+            text-align:center;
+            color:#FFFFFF;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+        }
+
+        /** CUSTOM TABLE */
+        table.tbstyle td.operator {
+            font-size: 12px;
+        }
+
+
+        table.tbstyle td.operator a:hover {
+            color: violet;
+        }
+
+/* Gradient 2 */
+.tb7 {
+	width: 221px;
+	background: transparent url('../static/images/bg_textbox.jpg') no-repeat;
+	color : #747862;
+	height:20px;
+	border:0;
+	padding:4px 8px;
+	margin-bottom:0px;
+}
+
+

@@ -1,0 +1,54 @@
+[% IF c.user_exists %]
+<div><img src="../static/images/create_new.png" width="16px" height="16px" align="absmiddle">&nbsp;<a href="/topic/new_thread/">作る</a></div>
+[% END %]
+<br />
+<table class="tbstyle">
+    <thead>
+    <tr>
+	<th width="10%">状態</th>
+   	<th width="55%">トレード/議論</th>
+	<th width="10%">ポスト</th>
+	<th width="10%">運営者</th>
+	<th width="15%">アップデート</th>
+    </tr>
+    </thead>
+    <tbody>
+    [% FOREACH thread IN threads %]
+      <tr>
+        <td align="center">
+	    [% IF thread.is_activated %]
+	    	[% IF thread.has_numbers_of_posts(thread) > 0 %]
+		    	<img width="30" height="30" src="../static/images/updated.png">
+	    	[% ELSE %]
+		     	<img width="30" height="30" src="../static/images/non_updated.png">
+	    	[% END %]
+	    [% ELSE %]
+		<img width="30" height="30" src="../static/images/closed.png">
+	    [% END %]
+	</td>
+        <td align="left">
+	    <div><a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a></div>
+	</td>
+	<td align="center">[% thread.has_numbers_of_posts(thread) %]</td>
+        <td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>
+	<td align="center">[% thread.created_date %]</td>
+      </tr>
+    [% END -%]
+      <tr colspan=3>
+	<th width="10%"></th>
+   	<th width="55%">[% empty_threads_list %]</th>
+	<th width="10%"></th>
+	<th width="10%"></th>
+	<th width="15%"></th>
+      </tr>
+    </tbody>
+    <thead>
+    	<tr>
+			<th width="100%" colspan="5">
+				<strong>
+					<a href="">Go to Top</a>
+				</strong>
+			</th>
+		</tr>
+	<thead>
+</table>

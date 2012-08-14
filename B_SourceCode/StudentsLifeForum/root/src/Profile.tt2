@@ -1,0 +1,26 @@
+<table class="tbstyle">
+    <thead>
+		<tr>
+			<th width="30%">関数</th>
+		   	<th width="70%">個人の細部</th>
+		</tr>
+    </thead>
+    <tbody>
+		<tr>
+			<td align="center">
+				<div>
+					[% IF user.avatar != '' %]
+						<img src="[% user.avatar %]" width="50" height="50" border="0" align="absmiddle">
+					[% ELSE %]
+						<img src="../static/images/no_avatar.jpg" width="50" height="50" border="0" align="absmiddle">
+					[% END %]
+				</div>
+				<div>Joined date: [% user.created_date %]</div>
+			</td>
+			<td>
+				<div>User name &nbsp;: &nbsp;<strong>[% user.username %]</strong></div>
+				<div>Email&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<strong>[% user.email %]</strong></div>
+			</td>
+		</tr>
+    </tbody>
+</table>

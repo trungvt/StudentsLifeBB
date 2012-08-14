@@ -1,0 +1,96 @@
+<!-- Thread Body Details -->
+<div align="left"><h3>[% thread.thread_subject %]</h3></div>
+<table class="tbstyle">
+    <thead>
+    <tr>
+		<th width="15%">#0</th>
+	   	<th width="85%">掲示 時間: [% thread.created_date %]</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    	<td align="center" style="position: absolute;">
+    		<div>
+    			<strong>[% owner.username %]</strong>
+    		</div>
+    		<div>
+    			<img src="[% owner.avatar %]" width="50" height="50" border="0" align="absmiddle">
+    		</div>
+    		<br />
+    		<div>
+    			<strong>新入 時間: [% owner.created_date %]</strong>
+    		</div>
+    	</td>
+    	<td>
+    		<div width="80%" align="left">
+    			[% thread.body %]
+    		</div>
+    		<div align="center">
+    			<img src="[% thread.image_path %]" width="50%" height="50%">
+    		</div>
+    	</td>
+    </tr>
+    </tbody>
+</table>
+<br />
+<!-- All Post -->
+<table class="tbstyle">
+	[% IF posts.count > 0 %]
+		[% FOREACH post IN posts %]
+			<thead>
+			<tr>
+				<th width="15%">[% post.id %]</th>
+			   	<th width="85%">掲示 時間[% post.created_date %]</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td align="center" style="position: absolute;">
+					<div>
+						<strong>[% post.owner_id.username %]</strong>
+					</div>
+					<div>
+						<img src="[% post.owner_id.avatar %]" width="50" height="50" border="0" align="absmiddle">
+					</div>
+					<br />
+					<div>
+						<strong>新入 時間: [% post.owner_id.created_date %]</strong>
+					</div>
+				</td>
+				<td>
+					<div width="80%" align="left">
+						[% post.body %]
+					</div>
+					<div align="center">
+						<img src="[% post.image_path %]" width="50%" height="50%">
+					</div>
+				</td>
+			</tr>
+			</tbody>
+			<br />
+		[% END %]
+    [% END %]
+</table>
+<!-- New Post Frame -->
+<table class="tbstyle">
+	<tr>
+		<td width="15%" align="center" style="position: absolute;"><strong>返事</strong></td>
+	   	<td width="85%" align="left">
+	   		<form action="[% c.uri_for('send_post') %]" method="post" accept-charset="utf-8">
+	   			<div>
+	   				<label for="body">含有量</label>
+	   			</div>
+				<div>
+					<textarea name="TextMessage" rows="8" cols="60"></textarea>
+				</div>
+				<div>
+					<label for="image">画像</label>
+				</div>
+				<div>
+					<input type="text" name="image" id="image" width="100px"><input type="submit" value="..." disabled="true">
+				</div>
+				<p><input type="submit" value="ポスト &rarr;"></p>
+	   		</form>
+	   	</td>
+	</tr>		
+</table>
