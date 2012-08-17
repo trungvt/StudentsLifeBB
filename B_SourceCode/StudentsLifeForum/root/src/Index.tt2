@@ -21,6 +21,7 @@
 		</td>
         <td align="left">
 	    <div><a href="/topic/[% topic.id %]">[% topic.topic_name %] [ [% topic.description %] ]</a></div>
+	    <div><font size="1px">[% topic.description %]</font></div>
 		</td>
 		<td align="center">[% topic.has_numbers_of_threads(topic) %]</td>
 		    <td align="center">trungvt</td>
@@ -32,7 +33,7 @@
     	<tr>
 			<th width="100%" colspan="5">
 				<strong>
-					<a href="">Go to Top</a>
+					<a href=""><font color="white">Go to Top</font></a>
 				</strong>
 			</th>
 		</tr>

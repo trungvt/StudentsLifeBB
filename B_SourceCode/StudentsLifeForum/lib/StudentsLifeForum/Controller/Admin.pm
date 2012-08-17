@@ -1,13 +1,12 @@
-package StudentsLifeForum::Controller::Login;
+package StudentsLifeForum::Controller::Admin;
 use Moose;
 use namespace::autoclean;
-use DateTime;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-StudentsLifeForum::Controller::Login - Catalyst Controller
+StudentsLifeForum::Controller::Admin - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -22,18 +21,17 @@ Catalyst Controller.
 
 =cut
 
-sub base :Chained('/'):PathPart('login'): Args(0) {
+sub admin :Chained('/'):PathPart('administrator'): Args(0) {
     my ( $self, $c ) = @_;
-   
-   	#my $result = $c->model('StudentsLifeDB::User')->find( {username => 'guest'} );
-   	#$c->stash(test => $result->created_date);
-    $c->stash(template => 'Login.tt2');
+	
+	
+    $c->stash(template => 'Admin.tt2');
 }
 
 sub login :Local :Args(0) {
-    my ( $self, $c ) = @_;
-    
-    my $username = $c->request->params->{username};
+	my ( $self, $c ) = @_;	
+		
+	my $username = $c->request->params->{username};
     my $password = $c->request->params->{password};
     my $dt = DateTime->now;
     my $today = $dt->ymd.' '.$dt->hms;
@@ -41,7 +39,7 @@ sub login :Local :Args(0) {
     if ( $username && $password ) {
 		if ($c->authenticate({ username => $username, password => $password, expiration => { '>=' => $today }} ) ) {
 	    	## user is signed in
-	    	$c->response->redirect($c->uri_for( $c->controller('Index')->action_for('index')) );
+	    	$c->response->redirect("/administrator");
 	     	return;
 		}
     	else {
@@ -51,15 +49,6 @@ sub login :Local :Args(0) {
 		$c->stash(error_msg => "Empty username or password.")
                 unless ($c->user_exists);
     }
-	
-    $c->stash(template => 'Login.tt2');
-}
-
-sub logout :Chained('/'):PathPart('logout'): Args(0) {
-    my ( $self, $c ) = @_;
-
-    $c->logout();
-    $c->stash(template => 'Logout.tt2');
 }
 
 

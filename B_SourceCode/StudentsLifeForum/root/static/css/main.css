@@ -154,7 +154,7 @@ ul {
             font-size:0.8em;
         }
  
-        /*** table's thead section, coulmns header style ***/
+        /*** table's thead section, columns header style ***/
         table.tbstyle thead tr th
         {
             padding: 0.5em;
@@ -213,6 +213,8 @@ ul {
         table.tbstyle td {
            vertical-align:middle;
            padding: 0.5em;
+           min-height: 150px;
+           height: auto;
         }
  
         /*** table's tfoot section ***/
@@ -227,7 +229,6 @@ ul {
             font-size: 12px;
         }
 
-
         table.tbstyle td.operator a:hover {
             color: violet;
         }
@@ -241,6 +242,11 @@ ul {
 	border:0;
 	padding:4px 8px;
 	margin-bottom:0px;
+}
+
+p {
+	min-height:150px;
+	max-height:inherit;
 }
 
 

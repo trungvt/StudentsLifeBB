@@ -64,6 +64,8 @@ __PACKAGE__->config(
                 password_type   => 'clear',
             },
         },
+    upload_abs => __PACKAGE__->path_to('root', 'upload'),
+    upload_dir => '/upload'
 );
 
 # Start the application

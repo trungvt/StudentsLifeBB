@@ -24,7 +24,15 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     
+    my $result = $c->model('StudentsLifeDB::Topic')->search( undef );
     $c->stash(topics => [$c->model('StudentsLifeDB::Topic')->all]);
+    my $page = $c->request->param('page');
+  	$page = 1 if($page !~ /^\d+$/);
+  	$result = $result->page($page);
+  	$c->stash->{result} = $result;
+  	my $pager = $result->pager;
+  	$pager->entries_per_page(3);
+  	$c->stash->{pager} = $pager;
     $c->stash(template => 'Index.tt2');
 }
 

@@ -1,7 +1,21 @@
 [% IF c.user_exists %]
-<div><img src="../static/images/create_new.png" width="16px" height="16px" align="absmiddle">&nbsp;<a href="/topic/new_thread/">作る</a></div>
+<div><img src="../static/images/create_new.png" width="16px" height="16px" align="absmiddle">&nbsp;<a href="#new_thread">作る</a></div>
 [% END %]
-<br />
+<hr />
+<a href="[% c.req.uri_with({ page => pager.first_page }) %]">&lt; &lt; First</a>
+<a href="[% c.req.uri_with({ page => pager.previous_page })%]">Previous</a>
+	[% WHILE i < pager.total_entries %]
+       [% IF (j+2) > pager.current_page && j < pager.current_page %]
+         	<span class="selected">
+       [% ELSE %]
+           	<span>
+       [% END %]            
+            <a href="[% c.req.uri_with({ page => j+1 }) %]" title="Show results [% i*pager.entries_per_page %] to [% i + j*pager.entries_per_page %] of [% totalPost %]">[% j+1 %]</a></span>
+       [% j= j+1 %]
+       [% i = j*pager.entries_per_page %]           
+  [% END %]
+<a href="[% c.req.uri_with({ page => pager.next_page })%]">Next</a>
+<a href="[% c.req.uri_with({ page => pager.last_page }) %]">Last >> </a>
 <table class="tbstyle">
     <thead>
     <tr>
@@ -25,30 +39,93 @@
 	    [% ELSE %]
 		<img width="30" height="30" src="../static/images/closed.png">
 	    [% END %]
-	</td>
-        <td align="left">
-	    <div><a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a></div>
-	</td>
-	<td align="center">[% thread.has_numbers_of_posts(thread) %]</td>
-        <td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>
-	<td align="center">[% thread.created_date %]</td>
+		</td>
+		<td align="left">
+			<a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a>
+			&nbsp; &nbsp;
+			[% IF c.user.username == c.model("StudentsLifeDB::User").find(thread.owner_id).username %]
+				<form action="[% c.uri_for('thread_delete') %]" method="post">
+	   				<input type="hidden" name="form_submit" value="yes">
+	   				<input type="hidden" value="[% thread.topic_id %]" id="topic_id" name="topic_id">
+	   				<input type="hidden" value="[% thread.id %]" id="thread_id" name="thread_id">
+		   			<input type="submit" value="[消す]&rarr;">
+	   			</form>
+			[% END %]
+		</td>
+		<td align="center">[% thread.has_numbers_of_posts(thread) %]</td>
+		    <td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>
+		<td align="center">[% thread.created_date %]
+		</td>
       </tr>
     [% END -%]
       <tr colspan=3>
-	<th width="10%"></th>
-   	<th width="55%">[% empty_threads_list %]</th>
-	<th width="10%"></th>
-	<th width="10%"></th>
-	<th width="15%"></th>
+		<th width="10%"></th>
+	   	<th width="55%">[% empty_threads_list %]</th>
+		<th width="10%"></th>
+		<th width="10%"></th>
+		<th width="15%"></th>
       </tr>
     </tbody>
     <thead>
     	<tr>
 			<th width="100%" colspan="5">
 				<strong>
-					<a href="">Go to Top</a>
+					<a href=""><font color="white">Go to Top</font></a>
 				</strong>
 			</th>
 		</tr>
-	<thead>
+	</thead>
 </table>
+<hr /><<
+<a href="[% c.req.uri_with({ page => pager.first_page }) %]">First</a>
+<a href="[% c.req.uri_with({ page => pager.previous_page })%]">Previous</a>
+	[% WHILE i < pager.total_entries %]
+       [% IF (j+2) > pager.current_page && j < pager.current_page %]
+         	<span class="selected">
+       [% ELSE %]
+           	<span>
+       [% END %]            
+            <a href="[% c.req.uri_with({ page => j+1 }) %]" title="Show results [% i*pager.entries_per_page %] to [% i + j*pager.entries_per_page %] of [% totalPost %]">[% j+1 %]</a></span>
+       [% j= j+1 %]
+       [% i = j*pager.entries_per_page %]           
+  	[% END %]
+<a href="[% c.req.uri_with({ page => pager.next_page })%]">Next</a>
+<a href="[% c.req.uri_with({ page => pager.last_page }) %]">Last</a> >>
+<table class="tbstyle">
+    <tbody>
+    <tr>
+	<th width="10%"></th>
+   	<th width="90%" align="left">
+   	[% IF c.user_exists() %]
+		<form action="[% c.uri_for('send_thread') %]" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+	   			<input type="hidden" name="form_submit" value="yes">
+	   			<input type="text" value="[% topic.id %]" id="topic_id" name="topic_id" hidden="true">
+	   			<div align="left"><font color="blue"><a name="new_thread"><strong>返事</strong></a></font></div>
+	   			<div>
+	   				<label for="subject">含有量</label>
+	   			</div>
+				<div>
+					<input type="text" name="subject" id="subject" width="200px">
+				</div>
+	   			<div>
+	   				<label for="body">含有量</label>
+	   			</div>
+				<div>
+					<textarea name="body" id="body" rows="8" cols="40"></textarea>
+				</div>
+				<div>
+					<label for="image">画像</label>
+				</div>
+				<div>
+					<input type="file" name="upload_image" id="upload_image" width="100px">
+				</div>
+				<p><input type="submit" value="ポスト &rarr;"></p>
+	   	</form>
+	[% END %]
+	</th>
+    </tr>
+    </tbody>
+</table>
+
+
+

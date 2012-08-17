@@ -1,0 +1,14 @@
+[% IF c.user_exists() && c.check_user_roles('admin') %]
+	
+[% ELSE %]
+<div><font color="red">You do not have permission to access this! Please, log in as administrator!</font></div>
+<h3>ログイン [Log in]</h3>
+<form action="[% c.uri_for('login') %]" method="post" accept-charset="utf-8">
+    <label for="username">Username</label>
+    <input type="text" name="username" value="" />
+    <br/><br/>
+    <label for="password">Password</label>
+    <input type="password" name="password" value="" />
+    <p><input type="submit" value="ログイン &rarr;"></p>
+</form>
+[% END %]

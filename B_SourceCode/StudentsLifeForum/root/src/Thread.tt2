@@ -1,33 +1,67 @@
-<!-- Thread Body Details -->
 <div align="left"><h3>[% thread.thread_subject %]</h3></div>
+<hr /><<
+<a href="[% c.req.uri_with({ page => pager.first_page }) %]">First</a>
+<a href="[% c.req.uri_with({ page => pager.previous_page })%]">Previous</a>
+  [% WHILE i < pager.total_entries %]
+       [% IF (j+2) > pager.current_page && j < pager.current_page %]
+         	<span class="selected">
+       [% ELSE %]
+           	<span>
+       [% END %]            
+            <a href="[% c.req.uri_with({ page => j+1 }) %]" title="Show results [% i*pager.entries_per_page %] to [% i + j*pager.entries_per_page %] of [% totalPost %]">[% j+1 %]</a></span>
+       [% j= j+1 %]
+       [% i = j*pager.entries_per_page %]           
+  [% END %]
+
+<a href="[% c.req.uri_with({ page => pager.next_page })%]">Next</a>
+<a href="[% c.req.uri_with({ page => pager.last_page }) %]">Last</a> >>
+<!-- Thread Body Details -->
 <table class="tbstyle">
     <thead>
     <tr>
-		<th width="15%">#0</th>
+		<th width="15%">#1<br />
+			<strong>
+				<a href=""><font color="white">Go to Top</font></a>
+			</strong>
+		</th>
 	   	<th width="85%">掲示 時間: [% thread.created_date %]</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-    	<td align="center" style="position: absolute;">
-    		<div>
-    			<strong>[% owner.username %]</strong>
-    		</div>
-    		<div>
-    			<img src="[% owner.avatar %]" width="50" height="50" border="0" align="absmiddle">
-    		</div>
-    		<br />
-    		<div>
-    			<strong>新入 時間: [% owner.created_date %]</strong>
-    		</div>
+    	<td style="vertical-align:top" align="center" min-height="200px">
+			<div>
+				<strong><a href="/profile/[% owner.id %]">[% owner.username %]</a></strong>
+			</div>
+			<div>
+				<img src="[% (owner.avatar == '') ? '../static/images/no_avatar.jpg' : owner.avatar %]" width="50" height="50" border="0" align="absmiddle">
+			</div>
+			<br />
+			<div>
+				<strong>新入 時間: [% owner.created_date %]</strong>
+			</div>
     	</td>
     	<td>
-    		<div width="80%" align="left">
-    			[% thread.body %]
-    		</div>
-    		<div align="center">
-    			<img src="[% thread.image_path %]" width="50%" height="50%">
-    		</div>
+			<div id="content" width="80%" align="left">
+				[% thread.body %]
+			</div>
+			[% IF thread.image_path != '' %]
+			<div id="gallery" align="center">
+				<a href="[% thread.image_path %]"><img src="[% thread.image_path %]" width="50%" height="50%" /></a>
+			</div>
+			[% END %]
+    		<div align="left">----------------------------------------</div>
+			<br />
+				[% IF c.user_exists() %]
+					[% IF c.user.username == owner.username  %]
+						<form action="[% c.uri_for('main_thread_delete') %]" method="post">
+	   						<input type="hidden" name="form_submit" value="yes">
+	   						<input type="hidden" value="[% thread.topic_id %]" id="topic_id" name="topic_id">
+	   						<input type="hidden" value="[% thread.id %]" id="thread_id" name="thread_id">
+		   					<input type="submit" value="[消す]&rarr;">
+	   					</form>
+					[% END %]
+				[% END %]
     	</td>
     </tr>
     </tbody>
@@ -35,59 +69,96 @@
 <br />
 <!-- All Post -->
 <table class="tbstyle">
-	[% IF posts.count > 0 %]
-		[% FOREACH post IN posts %]
-			<thead>
-			<tr>
-				<th width="15%">[% post.id %]</th>
-			   	<th width="85%">掲示 時間[% post.created_date %]</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td align="center" style="position: absolute;">
-					<div>
-						<strong>[% post.owner_id.username %]</strong>
-					</div>
-					<div>
-						<img src="[% post.owner_id.avatar %]" width="50" height="50" border="0" align="absmiddle">
-					</div>
-					<br />
-					<div>
-						<strong>新入 時間: [% post.owner_id.created_date %]</strong>
-					</div>
-				</td>
-				<td>
-					<div width="80%" align="left">
-						[% post.body %]
-					</div>
-					<div align="center">
-						<img src="[% post.image_path %]" width="50%" height="50%">
-					</div>
-				</td>
-			</tr>
-			</tbody>
-			<br />
-		[% END %]
-    [% END %]
+	[% count = 2 %]
+	[% FOREACH post IN posts %]
+	<thead>
+		<tr>
+			<th width="15%">#[% count %]<br />
+				<strong>
+					<a href=""><font color="white">Go to Top</font></a>
+				</strong>
+			</th>
+		   	<th width="85%">掲示 時間: [% post.created_date %]</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="vertical-align:top" align="center" height="200px">
+				<div>
+					<strong><a href="/profile/[% post.sender.id %]">[% (post.sender_id != '') ? post.sender.username : 'guest' %]</a></strong>
+				</div>
+				<div>
+					<img src="[% (post.sender.avatar == '') ? '../static/images/no_avatar.jpg' : post.sender.avatar %]" width="50" height="50" border="0" align="absmiddle">
+				</div>
+				<br />
+				<div>
+					<strong>[% (post.sender_id != '') ? '新入 時間:' : '' %] [% (post.sender_id != '') ? post.sender.created_date : '' %]</strong>
+				</div>
+			</td>
+			<td height="auto">
+				<div id="content" width="80%" align="left">
+					[% post.body %]
+				</div>
+				[% IF post.image_path != '' %]
+				<div id="gallery" align="center">
+					<a href="[% post.image_path %]"><img src="[% post.image_path %]" width="50%" height="50%" /></a>
+				</div>
+				[% END %]
+				<div align="left">--------------------------------------</div>
+				<div>
+				[% IF c.user_exists() %]
+					[% IF c.user.username == post.sender.username  %]
+						<form action="[% c.uri_for('post_delete') %]" method="post">
+	   						<input type="hidden" name="form_submit" value="yes">
+	   						<input type="hidden" value="[% post.thread_id %]" id="thread_id" name="thread_id">
+	   						<input type="hidden" value="[% post.id %]" id="post_id" name="post_id">
+		   					<input type="submit" value="[消す]&rarr;">
+	   					</form>
+					[% END %]
+				[% END %]
+				</div>
+			</td>
+		</tr>
+		</tbody>
+		[% count = count + 1 %]
+	[% END -%]
 </table>
+<hr /><<
+<a href="[% c.req.uri_with({ page => pager.first_page }) %]">First</a>
+<a href="[% c.req.uri_with({ page => pager.previous_page })%]">Previous</a>
+	[% WHILE i < pager.total_entries %]
+       [% IF (j+2) > pager.current_page && j < pager.current_page %]
+         	<span class="selected">
+       [% ELSE %]
+           	<span>
+       [% END %]            
+            <a href="[% c.req.uri_with({ page => j+1 }) %]" title="Show results [% i*pager.entries_per_page %] to [% i + j*pager.entries_per_page %] of [% totalPost %]">[% j+1 %]</a></span>
+       [% j= j+1 %]
+       [% i = j*pager.entries_per_page %]           
+  	[% END %]
+  	
+<a href="[% c.req.uri_with({ page => pager.next_page })%]">Next</a>
+<a href="[% c.req.uri_with({ page => pager.last_page }) %]">Last</a> >>
 <!-- New Post Frame -->
 <table class="tbstyle">
 	<tr>
-		<td width="15%" align="center" style="position: absolute;"><strong>返事</strong></td>
+		<td width="15%" align="center" style="position: absolute;"></td>
 	   	<td width="85%" align="left">
-	   		<form action="[% c.uri_for('send_post') %]" method="post" accept-charset="utf-8">
+	   		<form action="[% c.uri_for('send_post') %]" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+	   			<input type="hidden" name="form_submit" value="yes">
+	   			<input type="text" value="[% thread.id %]" id="thread_id" name="thread_id" hidden="true">
+	   			<div align="left"><font color="blue"><strong>返事</strong></font></div>
 	   			<div>
 	   				<label for="body">含有量</label>
 	   			</div>
 				<div>
-					<textarea name="TextMessage" rows="8" cols="60"></textarea>
+					<textarea name="body" id="body" rows="8" cols="60"></textarea>
 				</div>
 				<div>
 					<label for="image">画像</label>
 				</div>
 				<div>
-					<input type="text" name="image" id="image" width="100px"><input type="submit" value="..." disabled="true">
+					<input type="file" name="upload_image" id="upload_image" width="100px">
 				</div>
 				<p><input type="submit" value="ポスト &rarr;"></p>
 	   		</form>

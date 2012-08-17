@@ -3,8 +3,24 @@
 <head>
     <title>学生の生活</title>
     <link rel="stylesheet" href="[% c.uri_for('../static/css/main.css') %]" />
+    <link rel="stylesheet" type="text/css" href="../static/markitup/skins/markitup/style.css" />
+	<link rel="stylesheet" type="text/css" href="../static/markitup/sets/default/style.css" />
     <script src="../static/js/form_validation.js"></script>
     <script src="../static/js/effect_ui.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/jquery_autolink.js"></script>
+    <script type="text/javascript" src="../static/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="../static/markitup/sets/default/set.js"></script>
+	<script type="text/javascript">
+	   	$(document).ready(function() {
+      		$("textarea").markItUp(mySettings);
+			
+			$("div#content").autolink();
+			$("div#content").mailto();
+			
+			$('html, body').animate({ scrollTop: 0 }, 0);
+   		});
+	</script>
 </head>
 
 <body onload="setupPicChange();">
@@ -46,7 +62,7 @@
 						[% ELSE %]
 							<font size="2">Hello! You logged in as <a href="/profile/[% c.user.id %]"><strong>[% c.user.username %]</strong></a><font> &nbsp; &nbsp;
 							[% IF c.user_exists() %]
-								[% IF c.check_user_roles(admin) %]
+								[% IF c.check_user_roles('admin') %]
 								<font size="2" color="#FF0000"><a href="/administrator"><strong>[運営者]</strong></a><font> &nbsp; &nbsp;
 								[% END %]
 							[% END %]
@@ -98,5 +114,7 @@
 			</td>
 		</tr>
 	</table>
+	
+
 </body>
 </html>
