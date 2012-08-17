@@ -54,8 +54,8 @@ sub send_post :Local :Args(0) {
 	my $thread_id = $c->request->params->{thread_id};
 	my $body = $c->request->params->{body};
     my $image_path = $c->request->params->{image};
-    my $dt = DateTime->now;
-   	my $created_date = $dt->ymd.' '.$dt->hms;
+    my $created_date = DateTime->now(time_zone=>'local');
+   	#my $created_date = $dt->ymd.' '.$dt->hms;
    	
    	# Has an user logged in
    	if ( $body ) {
@@ -76,6 +76,7 @@ sub send_post :Local :Args(0) {
    			my $owner_id = $c->user->get('id');
    			
 	   		my $thread = $threads_rs->find({ id => $thread_id, key => 'primary' });
+	   		$thread->update({ created_date => $created_date, });
 	   		$thread->posts->create({ body => $body,
 	   								 image_path => $image_path,
 	   								 created_date => $created_date,

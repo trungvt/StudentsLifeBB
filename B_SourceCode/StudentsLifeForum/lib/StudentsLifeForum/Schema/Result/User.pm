@@ -180,7 +180,19 @@ __PACKAGE__->many_to_many("roles", "user_roles", "role");
 # Created by DBIx::Class::Schema::Loader v0.07025 @ 2012-08-06 20:14:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8OX7tXfpTF1NXgoL06aOrg
 
+sub has_role {
+	my ($self, $role) = @_;
+	## $role is a row object for a role.
+	my $roles = $self->user_roles->find({ role_id => $role->id });
+	return $roles;
+}
 
+sub current_role {
+	my ($self) = @_;
+	my $user_roles = $self->user_roles->find({ user_id => $self->id })->role;
+	#my $roles = $user_roles->role_id->role;
+	return $user_roles;
+}
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

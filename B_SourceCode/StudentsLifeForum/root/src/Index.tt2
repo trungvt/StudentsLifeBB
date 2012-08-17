@@ -3,29 +3,37 @@
     <thead>
     <tr>
 		<th width="10%">状態</th>
-	   	<th width="55%">トピック</th>
+	   	<th width="35%">トピック</th>
 		<th width="10%">トレード/議論</th>
+		<th width="35%">アップデート</th>
 		<th width="10%">運営者</th>
-		<th width="15%">アップデート</th>
     </tr>
     </thead>
     <tbody>
     [% FOREACH topic IN topics %]
     <tr>
         <td align="center">
-	    [% IF topic.has_numbers_of_threads(topic) > 0 %]
-		<img width="30" height="30" src="../static/images/updated.png">
-	    [% ELSE %]
-		<img width="30" height="30" src="../static/images/non_updated.png">
-	    [% END %]
+			[% IF topic.has_numbers_of_threads(topic) > 0 %]
+		    	<img width="30" height="30" src="../static/images/updated.png">
+	    	[% ELSE %]
+		     	<img width="30" height="30" src="../static/images/non_updated.png">
+	    	[% END %]
 		</td>
         <td align="left">
-	    <div><a href="/topic/[% topic.id %]">[% topic.topic_name %] [ [% topic.description %] ]</a></div>
+	    <div><a href="/topic/[% topic.id %]">[% topic.topic_name %]</a></div>
 	    <div><font size="1px">[% topic.description %]</font></div>
 		</td>
 		<td align="center">[% topic.has_numbers_of_threads(topic) %]</td>
-		    <td align="center">trungvt</td>
-		<td align="center">[% topic.created_date %]</td>
+		<td align="center">
+		[% IF topic.has_numbers_of_threads(topic) > 0 %]
+			<strong>Latest Thread: </strong><a href="/thread/[% topic.get_latest_thread(topic).id %]">[% topic.get_latest_thread(topic).thread_subject %]</a>
+			<br />
+			at [% topic.get_latest_thread(topic).created_date %]
+		[% ELSE %]
+			No update
+		[% END %]
+		</td>
+		<td align="center">trungvt</td>
     </tr>
     [% END -%]
     </tbody>

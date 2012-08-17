@@ -31,18 +31,26 @@ sub topic :Chained('/'):PathPart('topic'): Args(1) {
 		my $topic = $c->model('StudentsLifeDB::Topic')->find({ id => $topic_id }, { key => 'primary' });
 		$c->stash(topic => $topic);
 		$c->stash(users_rs => $c->model('StudentsLifeDB::User'));
-		#my $threads_list = [$c->model('StudentsLifeDB::Thread')->search({topic_id => $topic_id})];
-		#$c->stash(threads => $threads_list);
 		
 		if ( $c->model('StudentsLifeDB::Thread')->search({topic_id => $topic_id})->count == 0) {
 			$c->stash(empty_threads_list => 'No Threads in this topic');
 		}
 		
+		# Paging
 		my $page = $c->request->param('page');
   		$page = 1 if($page !~ /^\d+$/);
-  		my $threads_list = $c->model('StudentsLifeDB::Thread')->search({ topic_id => $topic_id }, { page => $page, rows => 5, });
-  		$c->stash->{pager} = $threads_list->pager; 
+  		my $threads_list = $c->model('StudentsLifeDB::Thread')->search({ topic_id => $topic_id }, 
+  																	   { order_by => 'created_date DESC'},
+  																	   { page => $page, rows => 5, });
+  		$c->stash->{pager} = $threads_list->pager;
 		$c->stash(threads => [$threads_list->all]);
+		
+		# Check NEW
+		my $now = DateTime->now(time_zone=>'local');
+		my $epoch = $now->epoch;
+		$epoch -= 24*60*60;
+		my $yesterday = DateTime->from_epoch(epoch => $epoch, time_zone=>'local');
+		$c->stash->{yesterday} = $yesterday;
 		$c->stash(template => 'Topic.tt2');
 	} else {
 		$c->stash(template => 'NewThread.tt2');
@@ -57,8 +65,7 @@ sub send_thread :Local :Args(0) {
 	my $subject = $c->request->params->{subject};
 	my $body = $c->request->params->{body};
     my $image_path = $c->request->params->{image};
-    my $dt = DateTime->now;
-   	my $created_date = $dt->ymd.' '.$dt->hms;
+    my $created_date = DateTime->now(time_zone=>'local');
    	
    	# Has an user logged in
    	if ( $body ) {

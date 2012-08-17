@@ -17,6 +17,7 @@ use Moose;
 use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
 use StudentsLifeForum::Schema::Result::User;
+use DateTime;
 extends 'DBIx::Class::Core';
 
 =head1 COMPONENTS LOADED
@@ -190,11 +191,37 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07025 @ 2012-08-06 20:14:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Tv8dfNWBbIGWNC9Uq0UOPQ
 
+__PACKAGE__->add_columns(
+    'created_date'  => {
+        data_type  => "DateTime"
+    },
+);
+
 sub has_numbers_of_posts {
     my ($self, $thread) = @_;
     
     return $self->posts->search({ thread_id => $thread->id})->count;
 };
+
+sub get_latest_post {
+	my ($self, $thread) = @_;
+	
+	if ( $thread->has_numbers_of_posts($thread) > 0 ) {
+		return $thread->posts->search({ thread_id => $thread->id }, {order_by => 'created_date DESC'})->first;
+	} else {
+		return $thread;
+	}
+};
+
+sub get_latest_post_date {
+	my ($self, $thread) = @_;
+	
+	if ( $self->has_numbers_of_posts($self) > 0 ) {
+		return $self->posts->search({ thread_id => $self->id }, {order_by => 'created_date DESC'})->first->created_date;
+	} else {
+		return $self->created_date;
+	}
+}
 
 #sub author_name_of_thread {
 #    my ($self, $owner_id) = @_;

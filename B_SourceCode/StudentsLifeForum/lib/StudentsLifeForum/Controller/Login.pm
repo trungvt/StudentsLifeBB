@@ -35,11 +35,11 @@ sub login :Local :Args(0) {
     
     my $username = $c->request->params->{username};
     my $password = $c->request->params->{password};
-    my $dt = DateTime->now;
-    my $today = $dt->ymd.' '.$dt->hms;
+    my $dt = DateTime->now(time_zone=>'local');
+    #my $today = $dt->ymd.' '.$dt->hms;
     
     if ( $username && $password ) {
-		if ($c->authenticate({ username => $username, password => $password, expiration => { '>=' => $today }} ) ) {
+		if ($c->authenticate({ username => $username, password => $password, expiration => { '>=' => $dt }} ) ) {
 	    	## user is signed in
 	    	$c->response->redirect($c->uri_for( $c->controller('Index')->action_for('index')) );
 	     	return;
@@ -61,7 +61,6 @@ sub logout :Chained('/'):PathPart('logout'): Args(0) {
     $c->logout();
     $c->stash(template => 'Logout.tt2');
 }
-
 
 =head1 AUTHOR
 

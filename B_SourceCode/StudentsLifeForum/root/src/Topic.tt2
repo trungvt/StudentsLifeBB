@@ -20,10 +20,10 @@
     <thead>
     <tr>
 	<th width="10%">状態</th>
-   	<th width="55%">トレード/議論</th>
+   	<th width="30%">トレード/議論</th>
 	<th width="10%">ポスト</th>
-	<th width="10%">運営者</th>
-	<th width="15%">アップデート</th>
+	<th width="35%">アップデート</th>
+	<th width="15%">運営者</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +31,7 @@
       <tr>
         <td align="center">
 	    [% IF thread.is_activated %]
-	    	[% IF thread.has_numbers_of_posts(thread) > 0 %]
+	    	[% IF thread.get_latest_post_date > yesterday %]
 		    	<img width="30" height="30" src="../static/images/updated.png">
 	    	[% ELSE %]
 		     	<img width="30" height="30" src="../static/images/non_updated.png">
@@ -41,7 +41,12 @@
 	    [% END %]
 		</td>
 		<td align="left">
-			<a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a>
+			<a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a>&nbsp; &nbsp;
+			[% IF thread.is_activated %]
+				[% IF thread.get_latest_post_date > yesterday %]
+					<font color="red"><strong>[NEW]</strong></font>
+				[% END %]
+			[% END %]
 			&nbsp; &nbsp;
 			[% IF c.user.username == c.model("StudentsLifeDB::User").find(thread.owner_id).username %]
 				<form action="[% c.uri_for('thread_delete') %]" method="post">
@@ -53,16 +58,23 @@
 			[% END %]
 		</td>
 		<td align="center">[% thread.has_numbers_of_posts(thread) %]</td>
-		    <td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>
-		<td align="center">[% thread.created_date %]
+		<td align="center">
+			<strong>Last Updated: </strong>[% thread.get_latest_post(thread).created_date %]
+			<br />by 
+			[% IF thread.get_latest_post(thread).sender_id != '' %]
+			<a href="/profile/[% thread.get_latest_post(thread).sender_id %]">[% thread.get_latest_post(thread).sender.username %]</a>
+			[% ELSE %]
+			guest
+			[% END %]
 		</td>
+		<td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>
       </tr>
     [% END -%]
       <tr colspan=3>
 		<th width="10%"></th>
-	   	<th width="55%">[% empty_threads_list %]</th>
+	   	<th width="30%">[% empty_threads_list %]</th>
 		<th width="10%"></th>
-		<th width="10%"></th>
+		<th width="35%"></th>
 		<th width="15%"></th>
       </tr>
     </tbody>
@@ -94,8 +106,8 @@
 <table class="tbstyle">
     <tbody>
     <tr>
-	<th width="10%"></th>
-   	<th width="90%" align="left">
+	<td width="10%"></td>
+   	<td width="90%" align="left">
    	[% IF c.user_exists() %]
 		<form action="[% c.uri_for('send_thread') %]" enctype="multipart/form-data" method="post" accept-charset="utf-8">
 	   			<input type="hidden" name="form_submit" value="yes">
@@ -119,10 +131,11 @@
 				<div>
 					<input type="file" name="upload_image" id="upload_image" width="100px">
 				</div>
+				<br />
 				<p><input type="submit" value="ポスト &rarr;"></p>
 	   	</form>
 	[% END %]
-	</th>
+	</td>
     </tr>
     </tbody>
 </table>

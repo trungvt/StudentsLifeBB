@@ -12,6 +12,7 @@ function register_formValidation() {
 			if (confirm_validation(password, confirm)) {
 				// Check email
 				if (email_validation(email)) {
+					return true;
 				}
 			}
 		}

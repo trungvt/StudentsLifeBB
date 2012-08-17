@@ -146,7 +146,11 @@ __PACKAGE__->belongs_to(
 # Created by DBIx::Class::Schema::Loader v0.07025 @ 2012-08-06 20:14:05
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I5pbw8kWJetyDy9jP56eQ
 
-
+__PACKAGE__->add_columns(
+    'created_date'  => {
+        data_type  => "DateTime"
+    },
+);
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

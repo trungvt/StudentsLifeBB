@@ -44,8 +44,9 @@ sub register :Local :Args(0) {
     	$c->stash(error_msg => 'Email has already been used! Try again!', template => 'Register.tt2');
     } else {
     	my $users_rs = $c->model('StudentsLifeDB::User');
-    	my $dt = DateTime->now;
-    	my $created_date = $dt->ymd.' '.$dt->hms;
+    	my $created_date = DateTime->now(time_zone=>'local');
+    	my $dt = DateTime->now(time_zone=>'local');
+    	
     	my $new_user = $users_rs->create({
 			username => $username,
 			email => $email,
@@ -54,8 +55,10 @@ sub register :Local :Args(0) {
 			avatar => $avatar
 		});
 		
+		$new_user->user_roles->create({ role_id => 2 });
+		
 		if ($new_user->id > 0) {
-			if ($c->authenticate({ username => $new_user->username, password => $new_user->password, status => ['active', 'trial'] }) ) {
+			if ($c->authenticate({ username => $new_user->username, password => $new_user->password, expiration => { '>=' => $dt }} )) {
 	    		$c->stash(status_msg => 'Registering Succeed!', template => 'Index.tt2');
 	     		return;
 			}

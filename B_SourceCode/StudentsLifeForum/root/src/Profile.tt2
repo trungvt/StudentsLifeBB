@@ -19,7 +19,7 @@
 			</td>
 			<td>
 				<div>User name &nbsp;: &nbsp;<strong>[% user.username %]</strong></div>
-				<div>Email&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<strong>[% user.email %]</strong></div>
+				<div id="content">Email&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: &nbsp;<strong>[% user.email %]</strong></div>
 			</td>
 		</tr>
     </tbody>

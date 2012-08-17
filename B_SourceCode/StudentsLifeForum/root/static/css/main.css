@@ -123,12 +123,6 @@ a:active {
         background:  url(../images/menu9.gif) 0 -32px;
         padding: 5px 0 0 35px;
         }
-ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        }
-
 
 .tr_list {
 	background: #FFFFFF;
@@ -244,9 +238,39 @@ ul {
 	margin-bottom:0px;
 }
 
-p {
-	min-height:150px;
-	max-height:inherit;
-}
+* { margin: 0; padding: 0;}
+        body {
+            font-family: arial, Georgia, sans-serif;
+            font-size: 12px;
+        }
+        #wrapper {
+            width: 100%;
+            margin: 20px auto;
+        }
+ 
+        dl  {
+            width: 100%;
+        }
+ 
+        dt{
+            background: #2B3BE6;
+            border-bottom: 1px solid white;
+            font-size: 14px;
+            padding: 5px 0px;
+        }
+ 
+        dt a {
+            color: white;
+            text-decoration: none;
+            padding: 0px 18px;
+        }
+ 
+        dd a {
+            color: white;
+        }
+ 
+        ul {
+            list-style: none; padding: 5px;
+        }
 
 

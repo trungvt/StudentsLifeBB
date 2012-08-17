@@ -37,7 +37,6 @@ sub after_register :Chained('/'):PathPart('profile'): Args(2) {
     }
 }
 
-
 =head1 AUTHOR
 
 Ubuntu 11.04,,,

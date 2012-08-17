@@ -143,6 +143,26 @@ sub has_numbers_of_threads {
     my ($self, $topic) = @_;
     
     return $self->threads->search({ topic_id => $topic->id})->count;
+};
+
+sub get_latest_thread {
+	my ($self, $topic) = @_;
+	
+	if ( $topic->has_numbers_of_threads($topic) > 0 ) {
+		return $topic->threads->search({ topic_id => $topic->id }, { order_by => 'created_date DESC'})->first;
+	} else {
+		return $topic;
+	}
+}
+
+sub get_latest_thread_date {
+	my ($self, $topic) = @_;
+	
+	if ( $self->has_numbers_of_threads($self) > 0 ) {
+		return $self->threads->search({ topic_id => $self->id }, { order_by => 'created_date DESC'})->first->created_date;
+	} else {
+		return $self->created_date;
+	}
 }
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

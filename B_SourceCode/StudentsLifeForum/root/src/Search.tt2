@@ -1,0 +1,52 @@
+<!-- Search Results for Threads -->
+<table class="tbstyle">
+    <thead>
+    <tr>
+		<th width="10%">#</th>
+	   	<th width="80%">トレード/議論</th>
+	   	<th width="10%">アップデート</th>
+    </tr>
+    </thead>
+    <tbody>
+    Searching results for '[% query %]':
+    <br />
+    [% count = 1 %]
+    [% FOREACH thread IN threads %]
+    <tr>
+        <td align="center">
+	    	#[% count %]
+		</td>
+        <td align="left">
+	    	<div><a href="/thread/[% thread.id %]">[% thread.thread_subject %]</a></div>
+		</td>
+		<td align="center">[% thread.created_date %]</td>
+    </tr>
+    	[% count = count + 1 %]
+    [% END %]
+    </tbody>
+</table>
+<!-- Search Results for Posts -->
+<table class="tbstyle">
+    <thead>
+    <tr>
+		<th width="10%">#</th>
+	   	<th width="80%">ポスト</th>
+	   	<th width="10%">アップデート</th>
+    </tr>
+    </thead>
+    <tbody>
+    [% FOREACH post IN posts %]
+    <tr>
+        <td align="center">
+	    	#[% count %]
+		</td>
+        <td align="left">
+        	<a href="/thread/[% post.thread.id %]">[% post.thread.thread_subject %]</a>
+	    	<div>[% post.body %]</div>
+		</td>
+		<td align="center">[% post.created_date %]</td>
+    </tr>
+    	[% count = count + 1 %]
+    [% END -%]
+    </tbody>
+</table>

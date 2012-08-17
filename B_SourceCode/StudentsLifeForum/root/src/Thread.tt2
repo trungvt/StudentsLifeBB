@@ -160,6 +160,7 @@
 				<div>
 					<input type="file" name="upload_image" id="upload_image" width="100px">
 				</div>
+				<br />
 				<p><input type="submit" value="ポスト &rarr;"></p>
 	   		</form>
 	   	</td>
