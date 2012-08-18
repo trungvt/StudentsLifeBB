@@ -54,11 +54,29 @@
 	   								<input type="hidden" value="[% topic.id %]" id="topic_id" name="topic_id">
 									<input type="submit" value="Delete"/>
 								</form>
+								
 							</td>
 						</tr>
 					    [% END %]
 					</table>
 			</div>
+			<form action="[% c.uri_for('create_topic') %]" method="post">
+				<input type="hidden" name="form_submit" value="yes">
+				<div align="left"><font color="blue"><a name="new_thread"><strong>返事</strong></a></font></div>
+	   			<div>
+	   				<label for="topic_name">含有量</label>
+	   			</div>
+				<div>
+					<input type="text" name="topic_name" id="topic_name" width="200px">
+				</div>
+	   			<div>
+	   				<label for="description">含有量</label>
+	   			</div>
+				<div>
+					<textarea name="description" id="description" rows="8" cols="40"></textarea>
+				</div>
+				<input type="submit" value="Create"/>
+			</form>
 		</ul>
 		</dd><dt><a href="#"><font color="white"><strong>Threads Management</strong></font></a></dt><dd>
 		<ul>

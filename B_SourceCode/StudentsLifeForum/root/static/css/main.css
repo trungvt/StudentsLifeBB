@@ -154,8 +154,8 @@ a:active {
             padding: 0.5em;
             /* add gradient */
             background-color: #2B65EC;
-            background: -webkit-gradient(linear, left top, left bottom, from(#2B65EC), to(#306EFF));
-            background: -moz-linear-gradient(top, #2B65EC, #306EFF);
+            background: -webkit-gradient(linear, left top, left bottom, from(#db9a3c), to(#D79A44));
+            background: -moz-linear-gradient(top, #db9a3c, #D79A44);
             color: #FFFFFF;
         }
  

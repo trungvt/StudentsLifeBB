@@ -2,50 +2,53 @@
 <form name='registration' action="[% c.uri_for('register') %]" method="post" accept-charset="utf-8" onSubmit="return register_formValidation();">
 <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
     <tr>
-		<td align="right">
+		<td width="40%" align="right">
 			<label for="username">Username: &nbsp;</label>
 		</td>
-		<td align="left">
+		<td width="50%" align="left">
 			<input type="text" id="username" name="username" value="" />
 		</td>
-		</tr>
+	</tr>
     <tr>
-    	<td align="right">
+    	<td width="40%" align="right">
 	    	<label for="password">Password: &nbsp;</label>
 		</td>
-		<td align="left">
+		<td width="50%" align="left">
 			<input type="password" id="password" name="password" value="" />
 		</td>
     </tr>
     <tr>
-		<td align="right">
+		<td width="40%" align="right">
 			<label for="confirm">Confirm: &nbsp;</label>
 		</td>
-		<td align="left">
+		<td width="50%" align="left">
 			<input type="password" id="confirm" name="confirm" value="" />
 		</td>
     </tr>
     <tr>
-    	<td align="right">
+    	<td width="40%" align="right">
 	    	<label for="email">E-mail: &nbsp;</label>
 		</td>
-    	<td align="left">
+    	<td width="40%" align="left">
 	    	<input type="text" id="email" name="email" value="" />
 		</td>
     </tr>
     <tr>
-		<td align="right">
+		<td width="40%" align="right">
 			<label for="avatar">Avatar: &nbsp;</label>
 		</td>
-		<td align="left">
-			<input type="text" id="avatar" name="avatar" value="" /> <input type="submit" value="..." disabled="true">
+		<td width="50%" align="left">
+			<input type="file" id="avatar" name="avatar" value="" />
 		</td>
     </tr>
     <tr>
 		<td></td>
 		<td colspan="2">
+		<br />
 			<input type="submit" value="&larr; 完成" >
-			<input type="submit" value="リセット &rarr;" disabled="true" onClick="this.form.reset();">
+			<input type="submit" value="リセット &rarr;" onClick="this.form.reset();">
+			<br />
+			<br />
 		</td>
     </tr>
 </table>

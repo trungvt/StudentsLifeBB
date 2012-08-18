@@ -39,8 +39,8 @@ sub topic :Chained('/'):PathPart('topic'): Args(1) {
 		# Paging
 		my $page = $c->request->param('page');
   		$page = 1 if($page !~ /^\d+$/);
-  		my $threads_list = $c->model('StudentsLifeDB::Thread')->search({ topic_id => $topic_id }, 
-  																	   { order_by => 'created_date DESC'},
+  		my $threads_list = $c->model('StudentsLifeDB::Thread')->search({ topic_id => $topic_id },
+  																	   { order_by => 'thread_subject DESC'},
   																	   { page => $page, rows => 5, });
   		$c->stash->{pager} = $threads_list->pager;
 		$c->stash(threads => [$threads_list->all]);

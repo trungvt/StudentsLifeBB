@@ -6,7 +6,9 @@
     <br/><br/>
     <label for="password">Password</label>
     <input type="password" name="password" value="" />
+    <br />    <br />
     <p><input type="submit" value="ログイン &rarr;"></p>
+    <br />
 </form>
 [% ELSE %]
     <p>You are already logged in.</p>

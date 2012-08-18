@@ -1,6 +1,7 @@
 package StudentsLifeForum::Controller::Admin;
 use Moose;
 use namespace::autoclean;
+use DateTime;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -140,6 +141,23 @@ sub lock_thread :Local :Args(0) {
 		});
 	}
 	$c->stash(status_msg => "Succeeded!");
+	$c->response->redirect("/administrator");
+}
+
+sub create_topic :Local :Args(0) {
+	my ($self, $c) = @_;
+	
+	my $topic_name = $c->request->params->{topic_name};
+	my $description = $c->request->params->{description};
+	my $created_date = DateTime->now(time_zone=>'local');
+	
+	if ( $c->request->parameters->{form_submit} eq 'yes' ) {
+		my $thread = $c->model('StudentsLifeDB::Topic')->create({ topic_name => $topic_name }, 
+																{ description => $description }, 
+																{ category => $topic_name }, 
+																{ created_date => $created_date });
+	}
+	
 	$c->response->redirect("/administrator");
 }
 

@@ -57,14 +57,24 @@
 	   			</form>
 			[% END %]
 		</td>
-		<td align="center">[% thread.has_numbers_of_posts(thread) %]</td>
+		<td align="center">
+			[% IF thread.has_numbers_of_posts(thread) > 0 %]
+				[% thread.has_numbers_of_posts(thread) %]
+			[% ELSE %]
+				1
+			[% END %]
+		</td>
 		<td align="center">
 			<strong>Last Updated: </strong>[% thread.get_latest_post(thread).created_date %]
 			<br />by 
 			[% IF thread.get_latest_post(thread).sender_id != '' %]
 			<a href="/profile/[% thread.get_latest_post(thread).sender_id %]">[% thread.get_latest_post(thread).sender.username %]</a>
 			[% ELSE %]
-			guest
+				[% IF thread.get_latest_post(thread).owner_id != '' %]
+					<a href="/profile/[% thread.get_latest_post(thread).owner_id %]">[% thread.get_latest_post(thread).owner.username %]</a>
+				[% ELSE %]
+					guest
+				[% END %]
 			[% END %]
 		</td>
 		<td align="center"><a href="/profile/[% thread.owner_id %]">[% c.model("StudentsLifeDB::User").find(thread.owner_id).username %]</a></td>

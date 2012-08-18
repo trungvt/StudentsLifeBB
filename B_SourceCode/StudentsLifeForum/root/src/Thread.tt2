@@ -47,7 +47,7 @@
 			</div>
 			[% IF thread.image_path != '' %]
 			<div id="gallery" align="center">
-				<a href="[% thread.image_path %]"><img src="[% thread.image_path %]" width="50%" height="50%" /></a>
+				<a href="[% thread.image_path %]"><img src="[% thread.image_path %]" width="50%" height="100%" /></a>
 			</div>
 			[% END %]
     		<div align="left">----------------------------------------</div>
