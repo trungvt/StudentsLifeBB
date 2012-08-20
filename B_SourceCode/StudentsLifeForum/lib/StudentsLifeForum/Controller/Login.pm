@@ -2,6 +2,7 @@ package StudentsLifeForum::Controller::Login;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use Digest::SHA1 qw(sha1_hex);
 
 BEGIN { extends 'Catalyst::Controller'; }
 
