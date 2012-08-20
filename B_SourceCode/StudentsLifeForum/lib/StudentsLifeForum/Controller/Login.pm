@@ -35,6 +35,8 @@ sub login :Local :Args(0) {
     
     my $username = $c->request->params->{username};
     my $password = $c->request->params->{password};
+	my $user = $c->model('StudentsLifeDB::User')->find({ username => $username });
+	$password = sha1_hex($user->salt . $password);
     my $dt = DateTime->now(time_zone=>'local');
     #my $today = $dt->ymd.' '.$dt->hms;
     

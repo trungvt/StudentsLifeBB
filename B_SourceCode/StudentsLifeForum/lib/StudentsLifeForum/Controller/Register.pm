@@ -2,6 +2,8 @@ package StudentsLifeForum::Controller::Register;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use String::Random;
+use Digest::SHA1 qw(sha1_hex);
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -34,6 +36,9 @@ sub register :Local :Args(0) {
     my $password = $c->request->params->{password};
     my $email = $c->request->params->{email};
     my $avatar = $c->request->params->{avatar};
+	my $random = new String::Random;
+    my $salt = $random->randpattern("C!cn");
+	$password = sha1_hex($salt . $password);
     
     my $check_user = $c->model('StudentsLifeDB::User')->search({ username => $username});
     my $check_email = $c->model('StudentsLifeDB::User')->search({ email => $email });
@@ -52,7 +57,8 @@ sub register :Local :Args(0) {
 			email => $email,
 			password => $password,
 			created_date => $created_date,
-			avatar => $avatar
+			avatar => $avatar,
+			salt => $salt
 		});
 		
 		$new_user->user_roles->create({ role_id => 2 });
